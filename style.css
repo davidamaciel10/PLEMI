@@ -1,61 +1,54 @@
 /* =========================================
-   1. IMPORTACIÓN DE FUENTES
+   1. FUENTES Y VARIABLES
    ========================================= */
 
-/* Fuente para textos generales (Pág. 8 Manual) */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+/* Texto general: Montserrat [cite: 67] */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
 
-/* Fuente para Títulos (Pág. 7 Manual) - REQUIERE ARCHIVO LOCAL */
+/* Títulos: Lastica  - ASEGÚRATE DE TENER EL ARCHIVO */
 @font-face {
     font-family: 'Lastica';
-    src: url('fonts/Lastica.ttf') format('truetype'); 
+    src: url('fonts/Lastica.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
-/* =========================================
-   2. VARIABLES DE MARCA (Pág. 5 Manual)
-   ========================================= */
 :root {
-    --color-amarillo: #FFB309;  /* Amarillo Institucional */
-    --color-gris:     #8E8E93;  /* Gris Institucional */
-    --color-blanco:   #FFFFFF;  /* Blanco */
-    --color-negro:    #000000;  /* Negro (fondo logo negativo) */
+    /* Paleta de Color Oficial [cite: 32, 33, 34] */
+    --color-amarillo: #FFB309; 
+    --color-gris:     #8E8E93;
+    --color-blanco:   #FFFFFF;
+    
+    /* Colores funcionales */
+    --color-negro:    #0a0a0a; /* Fondo oscuro alto contraste */
+    --color-fondo:    #f4f4f4;
     
     --font-titulos:   'Lastica', sans-serif;
     --font-texto:     'Montserrat', sans-serif;
 }
 
 /* =========================================
-   3. ESTILOS GENERALES
+   2. BASE
    ========================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: var(--font-texto);
-    color: var(--color-negro);
-    background-color: var(--color-blanco);
+    color: #333;
+    background-color: var(--color-fondo);
     line-height: 1.6;
 }
 
-/* Clases de utilidad para colores */
-.text-accent { color: var(--color-amarillo); }
-.text-white { color: var(--color-blanco); }
-.text-light-grey { color: #ccc; } /* Ligeramente más claro que el gris institucional para leer sobre negro */
-.bg-dark { background-color: var(--color-negro); }
-.bg-white { background-color: var(--color-blanco); }
-
-/* Títulos Generales */
-h1, h2, h3, h4, h5 {
+/* Títulos Lastica [cite: 55] */
+h1, h2, h3, h4 {
     font-family: var(--font-titulos);
     text-transform: uppercase;
+    font-weight: normal;
     letter-spacing: 1px;
-    font-weight: normal; /* Lastica ya es gruesa */
 }
+
+.text-accent { color: var(--color-amarillo); }
+.text-center { text-align: center; }
 
 .container {
     max-width: 1200px;
@@ -63,16 +56,108 @@ h1, h2, h3, h4, h5 {
     padding: 0 20px;
 }
 
+.section-padding { padding: 80px 0; }
+
+/* =========================================
+   3. NAVBAR
+   ========================================= */
+.navbar {
+    background-color: var(--color-negro);
+    padding: 1.5rem 0;
+    border-bottom: 3px solid var(--color-amarillo);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: var(--color-blanco);
+    text-decoration: none;
+    font-size: 0.9rem; /* Lastica es grande, reducimos tamaño */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.separator { color: var(--color-gris); font-weight: bold; }
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--color-blanco);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--color-amarillo); }
+
+/* =========================================
+   4. HERO (PORTADA)
+   ========================================= */
+.hero {
+    height: 85vh;
+    background-color: #111;
+    /* background-image: url('img/fondo-taller.jpg'); */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-blanco);
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); /* Oscurecer fondo */
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.brand-title {
+    font-size: 2.5rem;
+    color: var(--color-amarillo);
+    margin-bottom: 15px;
+}
+
+.brand-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-gris);
+    margin-bottom: 25px;
+}
+
+.hero-text {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    font-weight: 300;
+}
+
 /* Botones */
 .btn {
-    display: inline-block;
     padding: 12px 30px;
     text-decoration: none;
-    font-family: var(--font-texto);
     font-weight: 700;
     text-transform: uppercase;
+    font-size: 0.9rem;
     border-radius: 4px;
-    transition: all 0.3s ease;
+    transition: 0.3s;
+    display: inline-block;
+    margin: 0 10px;
 }
 
 .btn-primary {
@@ -86,150 +171,119 @@ h1, h2, h3, h4, h5 {
     color: var(--color-amarillo);
 }
 
-/* =========================================
-   4. NAVBAR
-   ========================================= */
-.navbar {
-    background-color: var(--color-negro);
-    padding: 1.5rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 2px solid var(--color-amarillo);
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-family: var(--font-titulos);
+.btn-outline {
+    border: 2px solid var(--color-blanco);
     color: var(--color-blanco);
-    text-decoration: none;
-    font-size: 1.1rem; /* Lastica es ancha, mejor un tamaño controlado */
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links a {
-    color: var(--color-blanco);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: var(--color-amarillo);
+.btn-outline:hover {
+    background-color: var(--color-blanco);
+    color: var(--color-negro);
 }
 
 /* =========================================
-   5. HERO SECTION (PORTADA)
+   5. UNIDADES DE NEGOCIO (CARDS)
    ========================================= */
-.hero {
-    height: 85vh;
-    background-color: #111; /* Negro suave si no hay imagen */
-    /* background-image: url('img/fondo-metal.jpg');  Descomentar si tienes imagen */
-    background-size: cover;
-    background-position: center;
+.intro-text { margin-bottom: 50px; }
+.intro-text p { color: #666; max-width: 600px; margin: 20px auto 0; }
+
+.units-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.unit-card {
+    background: var(--color-blanco);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-top: 5px solid transparent;
+    transition: transform 0.3s;
+}
+
+.unit-card:hover { transform: translateY(-5px); }
+
+/* Estilo específico PLEGADOS */
+.card-plemi { border-top-color: var(--color-amarillo); }
+.card-plemi h4 { color: var(--color-negro); }
+
+/* Estilo específico INNOVA */
+.card-innova { border-top-color: var(--color-gris); background-color: #fcfcfc; }
+.card-innova h4 { color: #444; }
+
+.unit-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: var(--color-amarillo);
+    color: var(--color-negro);
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-radius: 50px;
+}
+
+.unit-badge.dark {
+    background-color: var(--color-gris);
+    color: var(--color-blanco);
+}
+
+.hex-icon {
+    width: 60px;
+    height: 60px;
+    background: #eee;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    color: var(--color-blanco);
+    font-weight: 900;
+    font-size: 1.5rem;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
-.brand-title {
-    font-size: 2.5rem;
-    color: var(--color-amarillo);
-    margin-bottom: 10px;
-}
+.hex-icon.yellow { background-color: var(--color-amarillo); color: #000; }
+.hex-icon.grey { background-color: var(--color-gris); color: #fff; }
 
-.brand-subtitle {
-    font-size: 1.2rem;
-    color: var(--color-blanco);
-    margin-bottom: 20px;
-}
-
-.hero-text {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto 30px auto;
-    color: var(--color-gris);
-}
-
-/* =========================================
-   6. SECCIONES DE CONTENIDO (PERFIL / TECNOLOGIA)
-   ========================================= */
-.section-padding {
-    padding: 80px 0;
-}
-
-.section-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
-}
-
-/* Línea decorativa amarilla debajo de títulos */
-.section-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: var(--color-amarillo);
-    margin-top: 10px;
-}
-
-.text-body {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    max-width: 800px;
-}
-
-.feature-list {
+.check-list {
     list-style: none;
-    margin-top: 20px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
 }
 
-.feature-list li {
+.check-list li {
     margin-bottom: 10px;
-    padding-left: 20px;
+    padding-left: 25px;
     position: relative;
-    font-weight: 500;
+    font-size: 0.95rem;
 }
 
-.feature-list li::before {
-    content: '•'; /* O puedes usar un hexágono SVG pequeño */
-    color: var(--color-amarillo);
+.check-list li::before {
+    content: '✔';
     position: absolute;
     left: 0;
-    font-weight: bold;
-}
-
-/* Estilos específicos para bloque Tecnología */
-.tech-partner {
-    font-family: var(--font-titulos);
-    font-size: 1.2rem;
-    color: var(--color-gris);
-    margin-bottom: 15px;
+    color: var(--color-amarillo);
 }
 
 /* =========================================
-   7. FOOTER
+   6. BANNER & FOOTER
    ========================================= */
+.banner-break {
+    background-color: var(--color-amarillo);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.banner-break h3 {
+    color: var(--color-negro);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
 .footer {
     background-color: var(--color-negro);
     color: var(--color-gris);
     padding: 60px 0 20px;
-    border-top: 5px solid var(--color-amarillo);
 }
 
 .footer-grid {
@@ -239,44 +293,29 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 40px;
 }
 
-.footer h4, .footer h5 {
-    color: var(--color-blanco);
-    margin-bottom: 15px;
-    font-size: 1rem;
-}
+.footer h4 { color: var(--color-blanco); font-size: 1.1rem; }
+.footer h5 { color: var(--color-amarillo); font-size: 0.9rem; margin-bottom: 15px; letter-spacing: 1px; }
 
-.footer a {
-    color: var(--color-amarillo);
+.footer-links a {
+    display: block;
+    color: var(--color-gris);
     text-decoration: none;
-    transition: color 0.2s;
+    margin-bottom: 8px;
 }
 
-.footer a:hover {
-    color: var(--color-blanco);
-}
+.footer-links a:hover { color: var(--color-blanco); }
 
 .copyright {
-    text-align: center;
-    border-top: 1px solid #333;
+    border-top: 1px solid #222;
     padding-top: 20px;
-    font-size: 0.85rem;
+    text-align: center;
+    font-size: 0.8rem;
 }
 
-/* =========================================
-   8. RESPONSIVE
-   ========================================= */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .brand-title {
-        font-size: 1.8rem;
-    }
-    
-    .hero-text {
-        font-size: 1rem;
-        padding: 0 15px;
-    }
+    .nav-container { flex-direction: column; gap: 15px; }
+    .brand-title { font-size: 1.8rem; }
+    .cta-group { display: flex; flex-direction: column; gap: 10px; }
+    .btn { width: 100%; margin: 0; }
 }
